@@ -24,12 +24,10 @@ class TransactionAccessControlHandler extends EntityAccessControlHandler {
 
       case 'view':
 
-        if (!$entity->isPublished()) {
-          return AccessResult::allowedIfHasPermission($account, 'view unpublished transaction entities');
+        if($account->hasPermission('view all transaction revisions') || $account->hasPermission('edit transaction entities')) {
+          return AccessResult::allowed();
         }
-
-
-        return AccessResult::allowedIfHasPermission($account, 'view published transaction entities');
+        else return AccessResult::allowedIfHasPermission($account, 'view all transaction revisions');
 
       case 'update':
 
@@ -37,7 +35,7 @@ class TransactionAccessControlHandler extends EntityAccessControlHandler {
 
       case 'delete':
 
-        return AccessResult::allowedIfHasPermission($account, 'delete transaction entities');
+        return AccessResult::allowedIfHasPermission($account, 'administer transaction entities');
     }
 
     // Unknown operation, no opinion.
@@ -48,7 +46,7 @@ class TransactionAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkCreateAccess(AccountInterface $account, array $context, $entity_bundle = NULL) {
-    return AccessResult::allowedIfHasPermission($account, 'add transaction entities');
+    return AccessResult::allowedIfHasPermission($account, 'administer transaction entities');
   }
 
 

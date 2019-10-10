@@ -4,5 +4,5 @@ entity.transaction:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'Transaction entity'
   requirements:
-    _permission: 'access content'
+    _permission: 'Administer Transaction entities'
 
